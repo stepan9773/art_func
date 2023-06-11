@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+<html>
+<head>
+    <title>Web UI Example</title>
+</head>
+<body>
+    <h1>Web UI Example</h1>
+
+    <form id="inputForm" action="/calculate" method="POST">
+        <label for="Xb">Xb:</label>
+        <input type="number" id="Xb" name="Xb" required><br>
+
+        <label for="Yb">Yb:</label>
+        <input type="number" id="Yb" name="Yb" required><br>
+
+        <label for="Hb">Hb:</label>
+        <input type="number" id="Hb" name="Hb" required><br>
+
+        <label for="Xc">Xc:</label>
+        <input type="number" id="Xc" name="Xc" required><br>
+
+        <label for="Yc">Yc:</label>
+        <input type="number" id="Yc" name="Yc" required><br>
+
+        <label for="Hc">Hc:</label>
+        <input type="number" id="Hc" name="Hc" required><br>
+
+        <button type="submit" id="submitButton">Calculate</button>
+    </form>
+
+    <div id="resultContainer">
+        <h2>Result:</h2>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        document.getElementById("inputForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            var formData = new FormData(this);
+
+            fetch('/calculate', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("result").textContent = data.result;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
